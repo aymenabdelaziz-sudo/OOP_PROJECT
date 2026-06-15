@@ -21,6 +21,8 @@ public:
                   string ln,
                   string reg);
 
+    ~Administrator() ;              
+
     void addStudent(Student* s);
 
     void addStaff(Staff* s);
@@ -40,4 +42,4 @@ public:
 };
 
 
-#endif // ADMINSTRATOR_H
+#endif 

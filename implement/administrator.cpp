@@ -16,6 +16,11 @@ Administrator::Administrator(string fn,
 
 }
 
+Administrator::~Administrator(){
+         delete [] students ;
+         delete [] staffs ;
+         delete [] Rooms ;
+}
 void Administrator::addStudent(Student *s)
 {
     if(studentCount<1000){
@@ -39,9 +44,6 @@ void Administrator::addStudentToDorm(Student* s){
         string stdID;
         cout << "enter the id room number of student with registration number (" << s->getRegistrationNumber() << ") : ";
         getline(cin, stdID);
-
-       
-
         Rooms[studentInDormCount++] = new Dorm(stdID,s);
     }else{
         throw out_of_range("Dorm list is full. ") ;
