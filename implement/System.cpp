@@ -106,9 +106,11 @@ void system::MainPage(){
     switch(choice){
 
     case 1:
-
+    RegisterPage() ;
+    break ;
     case 2:
-
+    LoginPage() ;
+    break ;
     case 3:
     cout << endl ;
     cout <<WHITE <<"  All your data are saved succefully \n"<<"  Exit ...." ;
@@ -123,4 +125,113 @@ void system::MainPage(){
     }
     }
 
+}
+
+void system::RegisterPage(){
+       int choice ;
+
+
+    while(true){
+    cout << endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << "               COMFORT                  \n";
+    cout << "========================================\n";
+
+    cout << WHITE;
+    cout << "  [1] Administrator\n";
+    cout << "  [2] Staff\n";
+    cout << "  [3] Student\n";
+    cout << "  [4] Back\n" ;
+
+    cout << BLUE;
+    cout << "========================================\n";
+    
+
+
+    
+
+   
+
+    cout << WHITE ;
+    cout << "  Back or Register as: ";
+    cin >> choice ;
+    switch(choice){
+
+    case 1:
+ 
+    break ;
+    case 2:
+   
+    break ;
+    case 3:
+    
+    break ;
+  
+    case 4:
+    return ;
+    break ;
+
+    default:
+    cout <<endl ;
+    cout << "  Invalide choice (1-4) \n" ;
+    break ;
+
+    }
+    }
+}
+
+void system::LoginPage(){
+
+       int choice ;
+
+
+    while(true){
+    cout << endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << "               COMFORT                  \n";
+    cout << "========================================\n";
+
+    cout << WHITE;
+    cout << "  [1] Administrator\n";
+    cout << "  [2] Staff\n";
+    cout << "  [3] Student\n";
+    cout << "  [4] Back\n" ;
+
+    cout << BLUE;
+    cout << "========================================\n";
+    
+
+
+    
+
+   
+
+    cout << WHITE ;
+    cout << "  Back or Login as: ";
+    cin >> choice ;
+    switch(choice){
+
+    case 1:
+ 
+    break ;
+    case 2:
+   
+    break ;
+    case 3:
+    
+    break ;
+  
+    case 4:
+    return ;
+    break ;
+
+    default:
+    cout <<endl ;
+    cout << "  Invalide choice (1-4) \n" ;
+    break ;
+
+    }
+    }
 }

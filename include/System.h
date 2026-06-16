@@ -10,6 +10,8 @@ class system{
     int run() ;
     void logoprinter() ;
     void MainPage() ;
+    void RegisterPage() ;
+    void LoginPage() ;
     
 };
 
