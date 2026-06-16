@@ -23,44 +23,57 @@ g++ -std=c++17 -Iinclude -o UniDormSystem src/main.cpp
 | **Polymorphism** | `virtual getRole()` |
 | **Composition** | `Dorm` contains `Student` |
 | **Exception Handling** | Invalid argument in `Administrator`, out of range in `Administrator` and `Staff` |
-| **Dynamic Memory** |  |
+| **Dynamic Memory** | used in `addStudentToDorm` function in `Administrator` |
 | **Friend Classes** | `Administrator` declared as friend in `Restaurant` |
 
 ## Data Structures
 - `vector` — To_Do in Staff
-- `array`  — students , Rooms , staffs
+- `array`  — students , Rooms , staffs in Administrator
 
 ## Users / Roles
-- **Students** — view rooms, place orders, check balance
-- **Dorms & Restaurant Administrator** — assign/vacate rooms, manage restaurant
-- **Dorms & Restaurant Staff** — day-to-day operations
-- **System Administrator** — full access
+- **Students** — reserve or unreserve meals (breakfast , lunch , dinner) , report problems to staff , view its information
+- **Staff** — view its To do list and check the completed task
+- **Administrator** — (add , remove) student or staff (to , from) the system , (add , remove) student to the Dorm , view information of all staff and student on the system , modifey the restaurant menu
 
 ## Operations Supported
-- **Access** / **Insert** / **Delete** / **Update** / **Search** / **Sort** on students, rooms, orders
+- **Access** / **Insert** / **Delete** on students, Rooms, staffs 
 
 ## Storage
 - Text files (CSV format) in `data/` directory:
   - `data/students.csv`
   - `data/staff.csv`
   - `data/rooms.csv`
-  - `data/orders.csv`
+  - `data/administrator.csv`
 
 
 ## Project Structure
 ```
-UniDormRestaurant/
+OOP_PROJECT/
+├── data/
+│   ├── student.csv
+│   ├── staff.csv
+│   ├── rooms.csv
+│   ├── administrator.csv
+├── implement/
+│   ├── person.cpp
+│   ├── student.cpp
+│   ├── staff.cpp
+│   ├── administrator.cpp
+│   ├── dorm.cpp
+│   ├── restaurant.cpp   
+│   ├── FileManagement.cpp
+│   └── System.cpp
 ├── include/
-│   ├── Person.h
-│   ├── Student.h
-│   ├── Staff.h
-│   ├── Room.h
-│   ├── Dorm.h
-│   ├── Restaurant.h   (MenuItem, Order, Restaurant)
-│   ├── FileManager.h
+│   ├── person.h
+│   ├── student.h
+│   ├── staff.h
+│   ├── administrator.h
+│   ├── dorm.h
+│   ├── restaurant.h   
+│   ├── FileManagement.h
 │   └── System.h
 ├── src/
 │   └── main.cpp
 ├── Makefile
 └── README.md
-```
+
