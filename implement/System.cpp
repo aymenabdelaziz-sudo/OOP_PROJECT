@@ -7,12 +7,27 @@
 #include "restaurant.h"
 #include "dorm.h"
 
+// Colors
+#define BLUE  "\033[34m"
+#define WHITE "\033[97m"
+#define RESET "\033[0m"
+
 using namespace std ;
+
+int system::run(){
+    logoprinter() ;
+    MainPage() ;
+    
+    
+    return 0 ;
+}
+
+
 
 void system::logoprinter(){
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    // WELCOME (Blue)
+    
     SetConsoleTextAttribute(hConsole, 9);
 
     cout << R"(
@@ -26,7 +41,7 @@ __          ________ _      _____ ____  __  __ ______
 
 )";
 
-    // TO (White)
+    
     SetConsoleTextAttribute(hConsole, 15);
 
     cout << R"(
@@ -40,7 +55,7 @@ __          ________ _      _____ ____  __  __ ______
 
 )";
 
-    // COMFORT (Blue)
+    
     SetConsoleTextAttribute(hConsole, 9);
 
     cout << R"(
@@ -59,3 +74,53 @@ __          ________ _      _____ ____  __  __ ______
     
 }
 
+void system::MainPage(){
+    
+    
+    int choice ;
+
+
+    while(true){
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << "               COMFORT                  \n";
+    cout << "========================================\n";
+
+    cout << WHITE;
+    cout << "  [1] Register\n";
+    cout << "  [2] Login\n";
+    cout << "  [3] Exit\n";
+
+    cout << BLUE;
+    cout << "========================================\n";
+    
+
+
+    
+
+   
+
+    cout << WHITE ;
+    cout << "  Please select an option (1-3): ";
+    cin >> choice ;
+    switch(choice){
+
+    case 1:
+
+    case 2:
+
+    case 3:
+    cout << endl ;
+    cout <<WHITE <<"  All your data are saved succefully \n"<<"  Exit ...." ;
+    exit(0) ;
+    break ;
+  
+    default:
+    cout <<endl ;
+    cout << "  Invalide choice (1-3) \n" ;
+    break ;
+
+    }
+    }
+
+}

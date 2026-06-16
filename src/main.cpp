@@ -3,5 +3,5 @@
 
 int main(){
     system sys ;
-    sys.logoprinter() ;
+    sys.run() ;
 }

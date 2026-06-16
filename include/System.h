@@ -7,9 +7,10 @@ class system{
     
     public :
     system() = default ;
+    int run() ;
     void logoprinter() ;
+    void MainPage() ;
     
-
 };
 
 
