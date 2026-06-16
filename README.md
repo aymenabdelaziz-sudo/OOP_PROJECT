@@ -23,7 +23,7 @@ g++ -std=c++17 -Iinclude -o UniDormSystem src/main.cpp
 | **Polymorphism** | `virtual getRole()` |
 | **Composition** | `Dorm` contains `Student` |
 | **Exception Handling** | Invalid argument in `Administrator`, out of range in `Administrator` and `Staff` |
-| **Dynamic Memory** | used in `addStudentToDorm` function in `Administrator` |
+| **Dynamic Memory** | used in add functions in `Administrator` |
 | **Friend Classes** | `Administrator` declared as friend in `Restaurant` |
 
 ## Data Structures

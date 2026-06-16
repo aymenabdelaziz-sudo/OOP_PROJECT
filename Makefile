@@ -15,16 +15,16 @@ all: $(TARGET)
 
 # Linking: Combines all object files into the final executable
 $(TARGET): $(OBJECTS)
- $(CXX) $(OBJECTS) -o $(TARGET)
+	 $(CXX) $(OBJECTS) -o $(TARGET)
 
 # Compilation: turn any .cpp in any dir into a .o in that same dir
 %.o: %.cpp
- $(CXX) $(CXXFLAGS) -c $< -o $@
+	 $(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Run command
 run: $(TARGET)
- ./$(TARGET)
+	 ./$(TARGET)
 
 # Clean command
 clean:
- rm -f $(foreach dir,$(SRCDIRS),$(dir)/*.o) $(TARGET)
+	 rm -f $(foreach dir,$(SRCDIRS),$(dir)/*.o) $(TARGET)

@@ -2,7 +2,7 @@
 
 
 
-Person::Person(string fn,string ln,string reg):firstName(fn),lastName(ln),registrationNumber(reg){}
+Person::Person(string fn,string ln,string reg):firstName(fn),lastName(ln),registrationID(reg){}
 
 
 
@@ -16,7 +16,7 @@ string Person::getLastName() const
     return lastName;
 }
 
-string Person::getRegistrationNumber() const
+string Person::getRegistrationID() const
 {
-    return registrationNumber;
+    return registrationID;
 }

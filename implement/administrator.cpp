@@ -17,34 +17,53 @@ Administrator::Administrator(string fn,
 }
 
 Administrator::~Administrator(){
-         delete [] students ;
-         delete [] staffs ;
-         delete [] Rooms ;
+         for(int i=0;i<studentCount;i++){
+            delete students[i] ;
+         } 
+        
+         for(int i=0;i<staffCount;i++){
+            delete staffs[i] ;
+         }
+
+         for(int i=0;i<studentInDormCount;i++){
+            delete Rooms[i] ;
+         }
 }
-void Administrator::addStudent(Student *s)
+void Administrator::addStudent(string fn,string ln,string ID)
 {
     if(studentCount<1000){
-        students[studentCount++] = s;
+        students[studentCount++] = new Student(fn,ln,ID);
     }else{
         throw out_of_range("student list is full. ") ;
     }
 }
 
-void Administrator::addStaff(Staff *s)
+void Administrator::addStaff(string fn,string ln,string ID)
 {
     if(staffCount<1000){
-        staffs[staffCount++] = s;
+        staffs[staffCount++] = new Staff( fn, ln, ID);
     }else{
         throw out_of_range("staff list is full. ") ;
     }
 }
 
-void Administrator::addStudentToDorm(Student* s){
+void Administrator::addStudentToDorm(string ID){
     if(studentInDormCount<1000){
-        string stdID;
-        cout << "enter the id room number of student with registration number (" << s->getRegistrationNumber() << ") : ";
-        getline(cin, stdID);
-        Rooms[studentInDormCount++] = new Dorm(stdID,s);
+        bool found=false ;
+       
+        for(int i=0;i<studentCount;i++){
+           if(students[i]->getRegistrationID()==ID){
+                found=true ;
+                Student* tmp = students[i] ;
+                 Rooms[studentInDormCount++] = new Dorm(ID,tmp);
+                break ;
+           }
+        }
+        if(!found){
+            throw invalid_argument("Student not found") ;
+        }
+       
+       
     }else{
         throw out_of_range("Dorm list is full. ") ;
     }
@@ -53,14 +72,14 @@ void Administrator::addStudentToDorm(Student* s){
 
 
 
-void Administrator::RemStudent(Student *s)
+void Administrator::RemStudent(string ID)
 {
     int pos = -1;
 
     for(int i = 0; i < studentCount; i++)
     {
-        if(students[i]->getRegistrationNumber()
-            == s->getRegistrationNumber())
+        if(students[i]->getRegistrationID()
+            == ID)
         {
             pos = i;
             break;
@@ -76,20 +95,20 @@ void Administrator::RemStudent(Student *s)
     {
         students[i] = students[i + 1];
     }
-
+    delete students[studentCount - 1] ;
     students[studentCount - 1] = nullptr;
     studentCount--;
 }
 
 
-void Administrator::RemStaff(Staff *s)
+void Administrator::RemStaff(string ID)
 {
     int pos = -1;
 
     for(int i = 0; i < staffCount; i++)
     {
-        if(staffs[i]->getRegistrationNumber()
-            == s->getRegistrationNumber())
+        if(staffs[i]->getRegistrationID()
+            == ID)
         {
             pos = i;
             break;
@@ -105,20 +124,20 @@ void Administrator::RemStaff(Staff *s)
     {
         staffs[i] = staffs[i + 1];
     }
-
+    delete staffs[staffCount - 1] ;
     staffs[staffCount - 1] = nullptr;
     staffCount--;
 }
 
 
-void Administrator::RemStudentFromDorm(Student *s)
+void Administrator::RemStudentFromDorm(string ID)
 {
     int pos = -1;
 
     for(int i = 0; i < studentInDormCount; i++)
     {
-        if(Rooms[i]->getStudent().getRegistrationNumber()
-            == s->getRegistrationNumber())
+        if(Rooms[i]->getStudent().getRegistrationID()
+            == ID)
         {
             pos = i;
             break;
@@ -138,17 +157,10 @@ void Administrator::RemStudentFromDorm(Student *s)
     {
         Rooms[i] = Rooms[i + 1];
     }
-
+    delete Rooms[studentInDormCount - 1] ;
     Rooms[studentInDormCount - 1] = nullptr;
     studentInDormCount--;
 }
-
-
-
-
-
-
-
 
 
 void assignmission(Staff& s,string m){

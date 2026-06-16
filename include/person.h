@@ -7,16 +7,16 @@ class Person
 protected:
     string firstName;
     string lastName;
-    string registrationNumber;
+    string registrationID;
 
 public:
     Person(string fn,
            string ln,
            string reg);
-
+    virtual ~Person() = default ;
     string getFirstName() const;
     string getLastName() const;
-    string getRegistrationNumber() const;
+    string getRegistrationID() const;
 
     virtual string getRole() const = 0;
 

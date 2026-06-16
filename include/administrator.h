@@ -23,17 +23,17 @@ public:
 
     ~Administrator() ;              
 
-    void addStudent(Student* s);
+    void addStudent(string fn,string ln,string ID);
 
-    void addStaff(Staff* s);
+    void addStaff(string fn,string ln,string ID);
 
-    void addStudentToDorm(Student* s) ;
+    void addStudentToDorm(string ID) ;
 
-    void RemStudent(Student* s) ;
+    void RemStudent(string ID) ;
 
-    void RemStaff(Staff* s) ;
+    void RemStaff(string ID ) ;
 
-    void RemStudentFromDorm(Student* s) ;
+    void RemStudentFromDorm(string ID) ;
 
 
     void assignmission(Staff&,string) ;

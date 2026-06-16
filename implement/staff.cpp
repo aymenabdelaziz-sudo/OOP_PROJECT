@@ -19,7 +19,7 @@ void Staff::printMissions()const
 {
 
 
-        for(int i = 0; i < To_Do.size(); i++)
+        for(int i = 0; i < int(To_Do.size()); i++)
         {
           cout <<"i+1"<<"- " << To_Do[i] <<endl ;   
         }
@@ -34,7 +34,7 @@ string Staff::getRole() const
 
 void Staff::Done(int i)
 {
-    if(i >= 1 && i < To_Do.size()+1){
+    if(i >= 1 && i < int(To_Do.size()+1)){
         To_Do.erase(To_Do.begin()+i-1); ;
     }else{
         throw out_of_range("invalid mission number ") ;
