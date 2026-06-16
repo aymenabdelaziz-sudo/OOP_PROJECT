@@ -12,8 +12,8 @@ make clean  # remove binaries and data/
 ```
 Or manually:
 ```bash
-g++ -std=c++17 -Iinclude -o UniDormSystem src/main.cpp
-./UniDormSystem
+g++ -std=c++17 -Iinclude -o COMFORT src/main.cpp
+./COMFORT
 ```
 
 ## OOP Concepts Used

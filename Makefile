@@ -8,7 +8,7 @@ SRCDIRS  = src implement
 SOURCES  = $(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.cpp))
 # Convert .cpp paths to .o paths
 OBJECTS  = $(SOURCES:.cpp=.o)
-TARGET   = UniDormSystem
+TARGET   = COMFORT
 
 # Default target
 all: $(TARGET)
