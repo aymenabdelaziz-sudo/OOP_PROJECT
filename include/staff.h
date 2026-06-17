@@ -21,6 +21,8 @@ public:
 
     string getRole() const override;
 
+    vector<string> getTo_Do()const ;
+
     void Done(int i) ;
 };
 

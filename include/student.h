@@ -6,9 +6,9 @@
 class Student : public Person
 {
 private:
-    bool breakfastReserved;
-    bool lunchReserved;
-    bool dinnerReserved;
+    bool breakfastReserved=false;
+    bool lunchReserved=false;
+    bool dinnerReserved=false;
 
 
 public :
@@ -28,6 +28,10 @@ public :
     void unreserveBreakfast();
     void unreserveLunch();
     void unreserveDinner();
+
+    bool getBreakfast()const ;
+    bool getLunch()const ;
+    bool getDinner()const ;
 
     void Report(Staff&,string)const ;
 

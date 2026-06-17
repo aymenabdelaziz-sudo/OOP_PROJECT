@@ -27,6 +27,10 @@ void Staff::printMissions()const
 
 }
 
+vector<string> Staff::getTo_Do()const{
+      return To_Do ;
+}
+
 string Staff::getRole() const
 {
     return "Staff";

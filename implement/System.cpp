@@ -311,7 +311,36 @@ void System::LoginAdministrator(){
 }
 
 void System::RegisterStaff(){
+    string fn,ln,reg ;  
+    
+    cout << endl ;
+    cout << BLUE<<"\n=======" ;
+    cout << WHITE << "Regestering As Staff" ;
+    cout << BLUE << "======\n" ;
+    cout << WHITE ;
+    cout << "  Enter your First Name: " ;
+    getline(cin,fn) ;
+    cout << endl ;
+    cout << "  Enter your Last Name: " ;
+    getline(cin,ln) ;
+    cout << endl ;
+    cout << "  Enter a registration ID: " ;
+    getline(cin,reg) ;
 
+      if(FileManagement::StaffExists(reg))
+{
+    cout << "  Registration ID already exists.\n";
+    return;
+}
+
+Staff S(fn,ln,reg);
+
+FileManagement::SaveStaff(S);
+
+ 
+    
+    StaffPage(S) ;
+   
 }
 
 void System::LoginStaff(){
@@ -320,6 +349,35 @@ void System::LoginStaff(){
 
 
 void System::RegisterStudent(){
+ string fn,ln,reg ;  
+    
+    cout << endl ;
+    cout << BLUE<<"\n=======" ;
+    cout << WHITE << "Regestering As Staff" ;
+    cout << BLUE << "======\n" ;
+    cout << WHITE ;
+     cout << "  Enter your First Name: " ;
+    getline(cin,fn) ;
+    cout << endl ;
+    cout << "  Enter your Last Name: " ;
+    getline(cin,ln) ;
+    cout << endl ;
+    cout << "  Enter a registration ID: " ;
+    getline(cin,reg) ;
+
+      if(FileManagement::StudentExists(reg))
+{
+    cout << "  Registration ID already exists.\n";
+    return;
+}
+
+Student S(fn,ln,reg);
+
+FileManagement::SaveStudent(S);
+
+ 
+    
+    StudentPage(S) ;
 
 }
 

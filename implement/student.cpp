@@ -86,3 +86,16 @@ string Student::getRole() const
 {
     return "Student";
 }
+
+
+bool Student::getDinner()const{
+    return breakfastReserved ;
+}
+
+bool Student::getLunch()const{
+    return lunchReserved ;
+}
+
+bool Student::getBreakfast()const{
+    return breakfastReserved ;
+}
