@@ -2,6 +2,6 @@
 
 
 int main(){
-    system sys ;
+    System sys ;
     sys.run() ;
 }

@@ -6,7 +6,7 @@
 #include "student.h"
 #include "restaurant.h"
 #include "dorm.h"
-
+#include "FileManagement.h"
 // Colors
 #define BLUE  "\033[34m"
 #define WHITE "\033[97m"
@@ -14,7 +14,8 @@
 
 using namespace std ;
 
-int system::run(){
+
+int System::run(){
     logoprinter() ;
     MainPage() ;
     
@@ -24,7 +25,7 @@ int system::run(){
 
 
 
-void system::logoprinter(){
+void System::logoprinter(){
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     
@@ -74,13 +75,14 @@ __          ________ _      _____ ____  __  __ ______
     
 }
 
-void system::MainPage(){
+void System::MainPage(){
     
     
     int choice ;
 
 
     while(true){
+    cout << endl ;
     cout << BLUE;
     cout << "========================================\n";
     cout << "               COMFORT                  \n";
@@ -102,7 +104,15 @@ void system::MainPage(){
 
     cout << WHITE ;
     cout << "  Please select an option (1-3): ";
-    cin >> choice ;
+       if (!(cin >> choice))
+{
+    cout << "  Invalid input. Please enter a number (view the menu).\n";
+
+    cin.clear(); // clear error state
+    cin.ignore(10000, '\n'); // discard bad input
+
+    continue;
+}
     switch(choice){
 
     case 1:
@@ -127,7 +137,7 @@ void system::MainPage(){
 
 }
 
-void system::RegisterPage(){
+void System::RegisterPage(){
        int choice ;
 
 
@@ -155,17 +165,25 @@ void system::RegisterPage(){
 
     cout << WHITE ;
     cout << "  Back or Register as: ";
-    cin >> choice ;
+       if (!(cin >> choice))
+{
+    cout << "  Invalid input. Please enter a number (view the menu).\n";
+
+    cin.clear(); // clear error state
+    cin.ignore(10000, '\n'); // discard bad input
+
+    continue;
+}
     switch(choice){
 
     case 1:
- 
+    RegisterAdministrator() ;
     break ;
     case 2:
-   
+    RegisterStaff() ;
     break ;
     case 3:
-    
+    RegisterStudent() ;
     break ;
   
     case 4:
@@ -181,7 +199,7 @@ void system::RegisterPage(){
     }
 }
 
-void system::LoginPage(){
+void System::LoginPage(){
 
        int choice ;
 
@@ -210,17 +228,26 @@ void system::LoginPage(){
 
     cout << WHITE ;
     cout << "  Back or Login as: ";
-    cin >> choice ;
+    if (!(cin >> choice))
+{
+    cout << "  Invalid input. Please enter a number (view the menu).\n";
+
+    cin.clear(); // clear error state
+    cin.ignore(10000, '\n'); // discard bad input
+
+    continue;
+}
+
     switch(choice){
 
     case 1:
- 
+    LoginAdministrator() ;
     break ;
     case 2:
-   
+    LoginStaff() ;
     break ;
     case 3:
-    
+    LoginStudent() ;
     break ;
   
     case 4:
@@ -235,3 +262,78 @@ void system::LoginPage(){
     }
     }
 }
+
+void System::RegisterAdministrator(){
+    
+    string enteredpasswd,fn,ln,reg ;
+    
+    cout << endl ;
+    cout << WHITE << "  enter the Administrator password: "  ;
+    cin.ignore() ;
+    getline(cin,enteredpasswd) ;
+    if(enteredpasswd != Administratorpasswd){
+    cout << endl ;
+    cout << "  Incorrect Password, Access denied\n " ;
+    return ;
+    }
+    cout << BLUE<<"\n=======" ;
+    cout << WHITE << "Regestering As Adminstrator" ;
+    cout << BLUE << "======\n" ;
+    cout << WHITE ;
+    cout << "  Enter your First Name: " ;
+    getline(cin,fn) ;
+    cout << endl ;
+    cout << "  Enter your Last Name: " ;
+    getline(cin,ln) ;
+    cout << endl ;
+    cout << "  Enter a registration ID: " ;
+    getline(cin,reg) ;
+   
+    if(FileManagement::AdministratorExists(reg))
+{
+    cout << "  Registration ID already exists.\n";
+    return;
+}
+
+Administrator A(fn,ln,reg);
+
+FileManagement::SaveAdministrator(A);
+
+ 
+    
+    AdministratorPage(A) ;
+
+
+}
+
+void System::LoginAdministrator(){
+
+}
+
+void System::RegisterStaff(){
+
+}
+
+void System::LoginStaff(){
+
+}
+
+
+void System::RegisterStudent(){
+
+}
+
+void System::LoginStudent(){
+
+}
+
+  void System::AdministratorPage(Administrator&){
+    exit(0) ;
+  } 
+    void System::StaffPage(Staff&){
+        exit(0) ;
+    }
+
+    void System::StudentPage(Student&){
+        exit(0) ;
+    }
