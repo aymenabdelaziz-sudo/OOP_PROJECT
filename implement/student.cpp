@@ -79,7 +79,7 @@ void Student::unreserveDinner()
 }
 
 void report(Staff& s,string m){
-    s.setMission(m) ;
+    s.AddMission(m) ;
 }
 
 string Student::getRole() const

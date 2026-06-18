@@ -10,7 +10,7 @@ Staff::Staff(string fn,
 {
 }
 
-void Staff::setMission(string m)
+void Staff::AddMission(string m)
 {
     To_Do.push_back(m);
 }

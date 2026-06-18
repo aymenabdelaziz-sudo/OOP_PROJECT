@@ -130,14 +130,14 @@ void FileManagement::SaveStaff(const Staff& S){
 
 bool FileManagement::StudentExists(const string& regID)
 {
-    ifstream file("data/student.csv");
+    ifstream file("data/students.csv");
 
     if (!file.is_open())
         return false;
 
     string line;
 
-    getline(file, line); // Skip header
+    getline(file, line); 
 
     while (getline(file, line))
     {
@@ -170,13 +170,8 @@ bool FileManagement::StudentExists(const string& regID)
 
 void FileManagement::SaveStudent(const Student& S)
 {
-    ofstream file("data/student.csv", ios::app);
+    ofstream file("data/students.csv", ios::app);
 
-    if (!file.is_open())
-    {
-        cout << "Unable to open student.csv\n";
-        return;
-    }
 
     file << S.getFirstName() << ","
          << S.getLastName() << ","
@@ -187,4 +182,129 @@ void FileManagement::SaveStudent(const Student& S)
          << '\n';
 
     file.close();
+}
+
+
+#include <fstream>
+#include <sstream>
+
+Administrator FileManagement::GetAdministratorByID(const string& regID)
+{
+    ifstream file("data/administrator.csv");
+
+    string line;
+
+    getline(file, line); 
+
+    while (getline(file, line))
+    {
+        stringstream ss(line);
+
+        string fn;
+        string ln;
+        string reg;
+
+        getline(ss, fn, ',');
+        getline(ss, ln, ',');
+        getline(ss, reg);
+
+        if (reg == regID)
+        {
+            file.close();
+            return Administrator(fn, ln, reg);
+        }
+    }
+
+    
+
+    return Administrator();  //this case will never be reached since the Administrator with the ID in the argument exist in administrator.csv so it is just to avoid the warning from the compiler
+
+
+}
+
+Staff FileManagement::GetStaffByID(const string& regID)
+{
+    ifstream file("data/staff.csv");
+
+    string line;
+    getline(file, line); 
+
+    while(getline(file, line))
+    {
+        stringstream ss(line);
+
+        string fn;
+        string ln;
+        string reg;
+        string missionsField;
+
+        getline(ss, fn, ',');
+        getline(ss, ln, ',');
+        getline(ss, reg, ',');
+        getline(ss, missionsField);
+
+        if(reg == regID)
+        {
+            Staff S(fn, ln, reg);
+
+            stringstream missionStream(missionsField);
+            string mission;
+
+            while(getline(missionStream, mission, '|'))
+            {
+                S.AddMission(mission);
+            }
+
+            return S;
+        }
+    }
+
+    return Staff();
+}
+
+Student FileManagement::GetStudentByID(const string& regID)
+{
+    ifstream file("data/student.csv");
+
+    string line;
+    getline(file, line); 
+
+    while(getline(file, line))
+    {
+        stringstream ss(line);
+
+        string fn;
+        string ln;
+        string reg;
+        string breakfast;
+        string lunch;
+        string dinner;
+
+        getline(ss, fn, ',');
+        getline(ss, ln, ',');
+        getline(ss, reg, ',');
+        getline(ss, breakfast, ',');
+        getline(ss, lunch, ',');
+        getline(ss, dinner);
+
+        if(reg == regID)
+        {
+            Student S(fn, ln, reg);
+
+           if(breakfast=="Reserved"){
+            S.reserveBreakfast() ;
+           }
+
+           if(lunch == "Reserved"){
+            S.reserveLunch() ;
+           }
+
+           if(dinner == "Reserved"){
+            S.reserveDinner() ;
+           }
+            return S;
+        }
+    }
+
+    return Student();
 }

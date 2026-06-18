@@ -17,9 +17,9 @@ private:
     static int studentInDormCount ;
 
 public:
-    Administrator(string fn,
-                  string ln,
-                  string reg);
+    Administrator(string fn="",
+                  string ln="",
+                  string reg="");
 
     ~Administrator() ;              
 

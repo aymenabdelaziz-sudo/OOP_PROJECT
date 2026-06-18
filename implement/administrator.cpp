@@ -164,7 +164,7 @@ void Administrator::RemStudentFromDorm(string ID)
 
 
 void assignmission(Staff& s,string m){
-    s.setMission(m) ;
+    s.AddMission(m) ;
 }
 
 string Administrator::getRole() const

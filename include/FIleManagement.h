@@ -12,5 +12,7 @@ public:
     static bool StudentExists(const string& regID);
     static void SaveStudent(const Student& S);
 
-    
+    static Administrator GetAdministratorByID(const string&) ;
+    static Staff GetStaffByID(const string&) ;
+    static Student GetStudentByID(const string&) ;
 };

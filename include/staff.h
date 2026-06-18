@@ -11,11 +11,11 @@ private:
 
 
 public:
-    Staff(string fn,
-          string ln,
-          string reg);
+    Staff(string fn="",
+          string ln="",
+          string reg="");
 
-    void setMission(string m);
+    void AddMission(string m);
 
     void printMissions()const  ;
 

@@ -17,9 +17,9 @@ public :
     static int NumOfDinnerRes ;
 
 
-    Student(string fn,
-            string ln,
-            string reg);
+    Student(string fn="",
+            string ln="",
+            string reg="");
 
     void reserveBreakfast();
     void reserveLunch();
