@@ -318,7 +318,7 @@ bool FileManagement::AssignStudentToRoom(const string& studentID,
 {
     if (!FileManagement::StudentExists(studentID))
 {
-    cout << "Student does not exist.\n";
+    cout << "  Student does not exist.\n";
     return false;
 }
 
@@ -371,19 +371,19 @@ bool FileManagement::AssignStudentToRoom(const string& studentID,
 
     if (studentAlreadyAssigned)
     {
-        cout << "Student already has a room.\n";
+        cout << "  Student already has a room.\n";
         return false;
     }
 
     if (!roomFound)
     {
-        cout << "Room does not exist.\n";
+        cout << "  Room does not exist.\n";
         return false;
     }
 
     if (!roomEmpty)
     {
-        cout << "Room is already occupied.\n";
+        cout << "  Room is already occupied.\n";
         return false;
     }
 
@@ -438,7 +438,7 @@ bool FileManagement::RemoveStudentFromRoom(const string& studentID)
 
     if (!found)
     {
-        cout << "Student does not have a room.\n";
+        cout << "  Student does not have a room.\n";
         return false;
     }
 
@@ -504,7 +504,7 @@ bool FileManagement::RemoveStudent(const string& regID)
 
     if (!found)
     {
-        cout << "Student not found.\n";
+        cout << "  Student not found.\n";
         return false;
     }
 
@@ -566,7 +566,7 @@ bool FileManagement::RemoveStaff(const string& regID)
 
     if (!found)
     {
-        cout << "Staff member not found.\n";
+        cout << "  Staff member not found.\n";
         return false;
     }
 
