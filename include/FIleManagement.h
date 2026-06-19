@@ -1,5 +1,6 @@
 #include "System.h"
 #include "administrator.h"
+#include "restaurant.h"
 class FileManagement
 {
 public:
@@ -23,4 +24,11 @@ public:
 
     static bool SaveStudentData(const Student& S) ;
     static bool SaveStaffData(const Staff& S) ;
+
+    static void DisplayAllStaff() ;
+    static bool AddMissionToStaff(const string& ID , const string& mission) ;
+    static void DisplayAllStudents() ;
+    static bool SaveRestaurant(const Restaurant& ) ;
+    static void DisplayMealsByDate(const string& date) ;
+    static bool SortAndRemoveDuplicateMenus() ;
 };

@@ -30,7 +30,10 @@ class System{
     void StaffPage(Staff&) ;
     void StudentPage(Student&) ;
 
-
+    void StaffManagement(Administrator) ;
+    void StudentManagement(Administrator) ;
+    void DormMAnagement(Administrator) ;
+    void RestaurantManagemnt(Administrator) ;
 };
 
 

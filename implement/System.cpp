@@ -169,8 +169,8 @@ void System::RegisterPage(){
 {
     cout << "  Invalid input. Please enter a number (view the menu).\n";
 
-    cin.clear(); // clear error state
-    cin.ignore(10000, '\n'); // discard bad input
+    cin.clear(); 
+    cin.ignore(10000, '\n'); 
 
     continue;
 }
@@ -232,8 +232,8 @@ void System::LoginPage(){
 {
     cout << "  Invalid input. Please enter a number (view the menu).\n";
 
-    cin.clear(); // clear error state
-    cin.ignore(10000, '\n'); // discard bad input
+    cin.clear(); 
+    cin.ignore(10000, '\n'); 
 
     continue;
 }
@@ -268,7 +268,7 @@ void System::RegisterAdministrator(){
     string enteredpasswd,fn,ln,reg ;
     
     cout << endl ;
-    cout << WHITE << "  enter the Administrator password: "  ;
+    cout << WHITE << "  Enter the Administrator password: "  ;
     cin.ignore() ;
     getline(cin,enteredpasswd) ;
     if(enteredpasswd != Administratorpasswd){
@@ -287,9 +287,30 @@ void System::RegisterAdministrator(){
     cout << "  Enter your Last Name: " ;
     getline(cin,ln) ;
     cout << endl ;
-    cout << "  Enter a registration ID: " ;
-    getline(cin,reg) ;
-   
+    
+
+while(true)
+{
+    cout << "  Enter a registration ID: ";
+    getline(cin, reg);
+
+    bool valid = false;
+
+    for(char c : reg)
+    {
+        if(!isspace(c))
+        {
+            valid = true;
+            break;
+        }
+    }
+
+    if(valid)
+        break;
+
+    cout << "  registration ID cannot be empty.\n";
+}
+
     if(FileManagement::AdministratorExists(reg))
 {
     cout << "  Registration ID already exists.\n";
@@ -311,7 +332,7 @@ void System::LoginAdministrator(){
     string enteredpasswd,fn,ln,reg ;
     
     cout << endl ;
-    cout << WHITE << "  enter the Administrator password: "  ;
+    cout << WHITE << "  Enter the Administrator password: "  ;
     cin.ignore() ;
     getline(cin,enteredpasswd) ;
     if(enteredpasswd != Administratorpasswd){
@@ -354,9 +375,28 @@ void System::RegisterStaff(){
     cout << "  Enter your Last Name: " ;
     getline(cin,ln) ;
     cout << endl ;
-    cout << "  Enter a registration ID: " ;
-    getline(cin,reg) ;
+    
+while(true)
+{
+    cout << "  Enter a registration ID: ";
+    getline(cin, reg);
 
+    bool valid = false;
+
+    for(char c : reg)
+    {
+        if(!isspace(c))
+        {
+            valid = true;
+            break;
+        }
+    }
+
+    if(valid)
+        break;
+
+    cout << "  registration ID cannot be empty.\n";
+}
       if(FileManagement::StaffExists(reg))
 {
     cout << "  Registration ID already exists.\n";
@@ -424,8 +464,28 @@ void System::RegisterStudent(){
     cout << "  Enter your Last Name: " ;
     getline(cin,ln) ;
     cout << endl ;
-    cout << "  Enter a registration ID: " ;
-    getline(cin,reg) ;
+
+while(true)
+{
+    cout << "  Enter a registration ID: ";
+    getline(cin, reg);
+
+    bool valid = false;
+
+    for(char c : reg)
+    {
+        if(!isspace(c))
+        {
+            valid = true;
+            break;
+        }
+    }
+
+    if(valid)
+        break;
+
+    cout << "  registration ID cannot be empty.\n";
+}
 
       if(FileManagement::StudentExists(reg))
 {
@@ -479,9 +539,277 @@ string reg ;
 
 }
 
-  void System::AdministratorPage(Administrator&){
+  void System::AdministratorPage(Administrator& A){
+       int choice ;
+       while(true){
+       cout << endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << "               COMFORT                  \n";
+    cout << "========================================\n";
+
+    cout << WHITE;
+    cout << "  [1] View my information \n" ;
+    cout << "  [2] Staff Management\n";
+    cout << "  [3] Studnet Management\n";
+    cout << "  [4] Restaurant Management\n";
+    cout << "  [5] Dorm Management\n" ;
+    cout << "  [6] Logout\n" ;
+    cout << "  [7] Exit\n" ;
+
+    cout << BLUE;
+    cout << "========================================\n";
+    
+    cout << WHITE ;
+    cout << "  Enter your choice (1-7): " ;
+       if (!(cin >> choice))
+{
+    cout << "  Invalid input. Please enter a number (view the menu).\n";
+
+    cin.clear(); 
+    cin.ignore(10000, '\n'); 
+
+    continue;
+}
+
+    switch(choice){
+    case 1:
+    
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << WHITE ; 
+    cout << "  You are an " << A.getRole() <<endl ;
+    cout << "  First Name       : " << A.getFirstName() <<endl ;
+    cout << "  Last Name        : " << A.getLastName() <<endl;
+    cout << "  Registeration ID : " << A.getRegistrationID() << endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    break ;
+
+    case 2:
+    StaffManagement(A) ;
+    break ;
+    case 3:
+    StudentManagement(A) ;
+    break ;
+    case 4:
+    RestaurantManagemnt(A) ;
+    break ;
+    case 5:
+
+    break ;
+    case 6:
+    MainPage() ;
+    break ;
+  
+    case 7:
+    cout << WHITE ;
+    cout <<"  All your data are saved succesfully \n" ;
+    cout <<"  Exit ...." ;
     exit(0) ;
+    break ;
+
+    default:
+    cout <<endl ;
+    cout << "  Invalide choice (1-7) \n" ;
+    break ;
+
+    }
+
+       }
+
+       
+
   } 
+
+    void System::StaffManagement(Administrator A){
+    int choice ;
+    string ID , mission ;
+    while(true){
+              cout << endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << "               COMFORT                  \n";
+    cout << "========================================\n";
+
+    cout << WHITE;
+    cout << "  [1] Display Staff Information \n" ;
+    cout << "  [2] Remove Staff\n";
+    cout << "  [3] Assign mission to a Staff\n";
+    cout << "  [4] Back\n";
+   
+
+    cout << BLUE;
+    cout << "========================================\n";
+    
+    cout << WHITE ;
+    cout << "  Enter your choice (1-4): " ;
+       if (!(cin >> choice))
+{
+    cout << "  Invalid input. Please enter a number (view the menu).\n";
+
+    cin.clear(); 
+    cin.ignore(10000, '\n'); 
+
+    continue;
+}
+
+    switch(choice){
+        case 1:
+        FileManagement::DisplayAllStaff() ;
+        break ;
+        case 2:
+       
+        cout << WHITE ;
+        cout << "  Entet the registeration ID of the staff you want to remove: " ;
+        cin.ignore() ;
+        getline(cin,ID) ;
+        if(A.RemStaff(ID)){
+            cout << "  Staff removed succefully. \n" ;
+        } 
+        break ;
+        case 3:
+        cout << WHITE ;
+        cout << "  Enter the registration ID of the staff you want to assign mission to: " ;
+        cin.ignore() ;
+        getline(cin,ID) ;
+        cout << "  Enter the mission: " ;
+        getline(cin,mission) ;
+        if(FileManagement::AddMissionToStaff(ID,mission)){
+            cout << "  Mission assigned to staff succesfully\n" ;
+        } 
+        break ;
+        case 4:
+        AdministratorPage(A) ;
+        break ;
+         default:
+         cout <<endl ;
+         cout << "  Invalide choice (1-4) \n" ;
+         break ;
+    }
+    }
+    }
+
+    void System::StudentManagement(Administrator A){
+
+        int choice ;
+        string ID ;
+          while(true){
+              cout << endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << "               COMFORT                  \n";
+    cout << "========================================\n";
+
+    cout << WHITE;
+    cout << "  [1] Display Student Information \n" ;
+    cout << "  [2] Remove Student\n";
+    cout << "  [3] Back\n";
+  
+   
+
+    cout << BLUE;
+    cout << "========================================\n";
+    
+    cout << WHITE ;
+    cout << "  Enter your choice (1-3): " ;
+       if (!(cin >> choice))
+{
+    cout << "  Invalid input. Please enter a number (view the menu).\n";
+
+    cin.clear(); 
+    cin.ignore(10000, '\n'); 
+
+    continue;
+}
+    switch(choice){
+        case 1:
+        FileManagement::DisplayAllStudents() ;
+        break ;
+        case 2:
+        cout << WHITE ;
+        cout << "  Entet the registeration ID of the student you want to remove: " ;
+        cin.ignore() ;
+        getline(cin,ID) ;
+        if(A.RemStudent(ID)){
+            cout << "  Student removed succefully. \n" ;
+        } 
+        break ;
+        case 3:
+        AdministratorPage(A) ;
+        break ;
+        default:
+        cout <<endl ;
+        cout << "  Invalide choice (1-3) \n" ;
+        break ;
+    }
+    
+    }
+}
+
+
+    void System::RestaurantManagemnt(Administrator A){
+        int choice ;
+        string date ;
+        Restaurant R ;
+           while(true){
+              cout << endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << "               COMFORT                  \n";
+    cout << "========================================\n";
+
+    cout << WHITE;
+    cout << "  [1] Set Restaurant Menu \n" ;
+    cout << "  [2] View Restaurant Menu\n";
+    cout << "  [3] Back\n";
+    
+
+    cout << BLUE;
+    cout << "========================================\n";
+    
+    cout << WHITE ;
+    cout << "  Enter your choice (1-3): " ;
+       if (!(cin >> choice))
+{
+    cout << "  Invalid input. Please enter a number (view the menu).\n";
+
+    cin.clear(); 
+    cin.ignore(10000, '\n'); 
+
+    continue;
+}
+    switch(choice){
+    case 1:
+    
+    R.SetMeals() ;
+    FileManagement::SaveRestaurant(R) ;
+    FileManagement::SortAndRemoveDuplicateMenus() ;
+    break ;
+    case 2:
+    cout << endl ;
+    cout << WHITE ;
+    cout << "  Enter the date of restaurant menu (YYYY-MM-DD): " ;
+    cin.ignore() ;
+    getline(cin,date) ;
+    FileManagement::DisplayMealsByDate(date) ;
+    break ;
+    case 3:
+    AdministratorPage(A) ;
+    break ;
+    default :
+    cout <<endl ;
+    cout << "  Invalide choice (1-4) \n" ;
+    break ;
+
+
+    }
+}
+    }
+
+
+
+
     void System::StaffPage(Staff&){
         exit(0) ;
     }

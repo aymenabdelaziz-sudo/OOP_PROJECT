@@ -12,9 +12,7 @@ private:
 
 
 public :
-    static int NumOfBreakRes ;
-    static int NumOfLunchRes ;
-    static int NumOfDinnerRes ;
+ 
 
 
     Student(string fn="",
@@ -33,7 +31,7 @@ public :
     bool getLunch()const ;
     bool getDinner()const ;
 
-    void Report(Staff&,string)const ;
+ 
 
     string getRole() const override;
 };

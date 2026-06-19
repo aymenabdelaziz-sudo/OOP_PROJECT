@@ -3,20 +3,21 @@
 #include <string>
 #include "administrator.h"
 #include <string>
+#include <iostream>
 using namespace std ;
 class Restaurant
 {
     friend class Administrator ;
-private :
-    string breakfast ;
-    string Lunch ;
-    string Dinner ;
-public:
-    Restaurant(string,string,string);
-    string getbreakfast()const ;
-     string getLunch()const ;
-    string getDinner()const ;
+public :
+    vector<string> BreakFast ;
+    vector<string> Lunch ;
+    vector<string> Dinner ;
+    string Date ;
 
+    Restaurant(vector<string>,vector<string>,vector<string>,string);
+    Restaurant(){} ;
+    void SetMeals() ; 
+   
 };
 
 #endif 

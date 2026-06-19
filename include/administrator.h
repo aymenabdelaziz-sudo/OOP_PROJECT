@@ -8,18 +8,17 @@
 
 class Administrator : public Person
 {
-private:
+
     
-    static int studentCount;
-    static int staffCount;
-    static int studentInDormCount ;
+
 
 public:
+    
     Administrator(string fn="",
                   string ln="",
                   string reg="");
 
-    ~Administrator() ;              
+              
 
     
 
@@ -32,7 +31,7 @@ public:
     bool RemStudentFromDorm(const string& ID) ;
 
 
-    void assignmission(Staff&,string) ;
+   
 
     string getRole() const override;
 };
