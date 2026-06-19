@@ -316,6 +316,12 @@ Student FileManagement::GetStudentByID(const string& regID)
 bool FileManagement::AssignStudentToRoom(const string& studentID,
                                          int roomNumber)
 {
+    if (!FileManagement::StudentExists(studentID))
+{
+    cout << "Student does not exist.\n";
+    return false;
+}
+
     ifstream in("data/dorm.csv");
 
     if (!in.is_open())
