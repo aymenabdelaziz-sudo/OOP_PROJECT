@@ -9,9 +9,7 @@
 class Administrator : public Person
 {
 private:
-    static Student* students[1000];
-    static Staff* staffs[100];
-    static Dorm* Rooms[1000] ;
+    
     static int studentCount;
     static int staffCount;
     static int studentInDormCount ;
@@ -23,17 +21,15 @@ public:
 
     ~Administrator() ;              
 
-    void addStudent(string fn,string ln,string ID);
+    
 
-    void addStaff(string fn,string ln,string ID);
+    bool addStudentToDorm(const string& ID , int RoomNum) ;
 
-    void addStudentToDorm(string ID) ;
+    bool RemStudent(const string& ID) ;
 
-    void RemStudent(string ID) ;
+    bool RemStaff(const string& ID ) ;
 
-    void RemStaff(string ID ) ;
-
-    void RemStudentFromDorm(string ID) ;
+    bool RemStudentFromDorm(const string& ID) ;
 
 
     void assignmission(Staff&,string) ;

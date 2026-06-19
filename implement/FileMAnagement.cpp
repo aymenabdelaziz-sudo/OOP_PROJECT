@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
+#include <cstdio>
 #include "System.h"
 #include "administrator.h" 
 #include "staff.h"
@@ -307,4 +309,396 @@ Student FileManagement::GetStudentByID(const string& regID)
     }
 
     return Student();
+}
+
+
+
+bool FileManagement::AssignStudentToRoom(const string& studentID,
+                                         int roomNumber)
+{
+    ifstream in("data/dorm.csv");
+
+    if (!in.is_open())
+        return false;
+
+    vector<string> lines;
+    string line;
+
+    // Copy header
+    getline(in, line);
+    lines.push_back(line);
+
+    bool studentAlreadyAssigned = false;
+    bool roomFound = false;
+    bool roomEmpty = false;
+
+    while (getline(in, line))
+    {
+        stringstream ss(line);
+
+        string id;
+        string room;
+
+        getline(ss, id, ',');
+        getline(ss, room);
+
+        // Check if student already has a room
+        if (id == studentID)
+            studentAlreadyAssigned = true;
+
+        // Check target room
+        if (stoi(room) == roomNumber) //stoi used to convert from string to int
+        {
+            roomFound = true;
+
+            if (id.empty())
+            {
+                roomEmpty = true;
+                line = studentID + "," + room;
+            }
+        }
+
+        lines.push_back(line);
+    }
+
+    in.close();
+
+    if (studentAlreadyAssigned)
+    {
+        cout << "Student already has a room.\n";
+        return false;
+    }
+
+    if (!roomFound)
+    {
+        cout << "Room does not exist.\n";
+        return false;
+    }
+
+    if (!roomEmpty)
+    {
+        cout << "Room is already occupied.\n";
+        return false;
+    }
+
+    ofstream out("data/dorm.csv");
+
+    for (const string& l : lines)
+        out << l << '\n';
+
+    out.close();
+
+    return true;
+}
+
+bool FileManagement::RemoveStudentFromRoom(const string& studentID)
+{
+    ifstream in("data/dorm.csv");
+
+    if (!in.is_open())
+        return false;
+
+    vector<string> lines;
+    string line;
+
+    // Save header
+    getline(in, line);
+    lines.push_back(line);
+
+    bool found = false;
+
+    while (getline(in, line))
+    {
+        stringstream ss(line);
+
+        string id;
+        string room;
+
+        getline(ss, id, ',');
+        getline(ss, room);
+
+        if (id == studentID)
+        {
+            found = true;
+
+            // Empty the StudentID field
+            line = "," + room;
+        }
+
+        lines.push_back(line);
+    }
+
+    in.close();
+
+    if (!found)
+    {
+        cout << "Student does not have a room.\n";
+        return false;
+    }
+
+    ofstream out("data/dorm.csv");
+
+    if (!out.is_open())
+        return false;
+
+    for (const string& l : lines)
+    {
+        out << l << '\n';
+    }
+
+    out.close();
+
+    return true;
+}
+
+bool FileManagement::RemoveStudent(const string& regID)
+{
+    ifstream in("data/student.csv");
+
+    if (!in.is_open())
+        return false;
+
+    vector<string> lines;
+    string line;
+
+    // Save header
+    getline(in, line);
+    lines.push_back(line);
+
+    bool found = false;
+
+    while (getline(in, line))
+    {
+        stringstream ss(line);
+
+        string fn;
+        string ln;
+        string reg;
+        string breakfast;
+        string lunch;
+        string dinner;
+
+        getline(ss, fn, ',');
+        getline(ss, ln, ',');
+        getline(ss, reg, ',');
+        getline(ss, breakfast, ',');
+        getline(ss, lunch, ',');
+        getline(ss, dinner);
+
+        if (reg == regID)
+        {
+            found = true;
+            continue; // Skip this line
+        }
+
+        lines.push_back(line);
+    }
+
+    in.close();
+
+    if (!found)
+    {
+        cout << "Student not found.\n";
+        return false;
+    }
+
+    ofstream out("data/student.csv");
+
+    if (!out.is_open()) // this optional because some rare cases like full disk or the data folder does mot exist
+        return false;
+
+    for (const string& l : lines)
+    {
+        out << l << '\n';
+    }
+
+    out.close();
+
+    return true;
+}
+
+bool FileManagement::RemoveStaff(const string& regID)
+{
+    ifstream in("data/staff.csv");
+
+    if (!in.is_open())
+        return false;
+
+    vector<string> lines;
+    string line;
+
+    // Save header
+    getline(in, line);
+    lines.push_back(line);
+
+    bool found = false;
+
+    while (getline(in, line))
+    {
+        stringstream ss(line);
+
+        string fn;
+        string ln;
+        string reg;
+        string missions;
+
+        getline(ss, fn, ',');
+        getline(ss, ln, ',');
+        getline(ss, reg, ',');
+        getline(ss, missions);
+
+        if (reg == regID)
+        {
+            found = true;
+            continue; 
+        }
+
+        lines.push_back(line);
+    }
+
+    in.close();
+
+    if (!found)
+    {
+        cout << "Staff member not found.\n";
+        return false;
+    }
+
+    ofstream out("data/staff.csv");
+
+    if (!out.is_open())
+        return false;
+
+    for (const string& l : lines)
+    {
+        out << l << '\n';
+    }
+
+    out.close();
+
+    return true;
+}
+
+
+    bool FileManagement::SaveStudentData(const Student& S)
+{
+    ifstream in("data/student.csv");
+
+    if (!in.is_open())
+        return false;
+
+    vector<string> lines;
+    string line;
+
+    getline(in, line);
+    lines.push_back(line);
+
+    bool found = false;
+
+    while (getline(in, line))
+    {
+        stringstream ss(line);
+
+        string fn, ln, reg;
+
+        getline(ss, fn, ',');
+        getline(ss, ln, ',');
+        getline(ss, reg, ',');
+
+        if (reg == S.getRegistrationID())
+        {
+            found = true;
+
+            line =
+                S.getFirstName() + "," +
+                S.getLastName() + "," +
+                S.getRegistrationID() + "," +
+                (S.getBreakfast() ? "Reserved" : "Not Reserved") + "," +
+                (S.getLunch() ? "Reserved" : "Not Reserved") + "," +
+                (S.getDinner() ? "Reserved" : "Not Reserved");
+        }
+
+        lines.push_back(line);
+    }
+
+    in.close();
+
+    if (!found)
+        return false;
+
+    ofstream out("data/student.csv");
+
+    for (const string& l : lines)
+        out << l << '\n';
+
+    out.close();
+
+    return true;
+}
+
+
+bool FileManagement::SaveStaffData(const Staff& S)
+{
+    ifstream in("data/staff.csv");
+
+    if (!in.is_open())
+        return false;
+
+    vector<string> lines;
+    string line;
+
+    getline(in, line);
+    lines.push_back(line);
+
+    bool found = false;
+
+    while (getline(in, line))
+    {
+        stringstream ss(line);
+
+        string fn, ln, reg, missions;
+
+        getline(ss, fn, ',');
+        getline(ss, ln, ',');
+        getline(ss, reg, ',');
+        getline(ss, missions);
+
+        if (reg == S.getRegistrationID())
+        {
+            found = true;
+
+            string newLine =
+                S.getFirstName() + "," +
+                S.getLastName() + "," +
+                S.getRegistrationID() + ",";
+
+            vector<string> todo = S.getTo_Do();
+
+            for (size_t i = 0; i < todo.size(); i++)
+            {
+                newLine += todo[i];
+
+                if (i != todo.size() - 1)
+                    newLine += "|";
+            }
+
+            line = newLine;
+        }
+
+        lines.push_back(line);
+    }
+
+    in.close();
+
+    if (!found)
+        return false;
+
+    ofstream out("data/staff.csv");
+
+    for (const string& l : lines)
+        out << l << '\n';
+
+    out.close();
+
+    return true;
 }
