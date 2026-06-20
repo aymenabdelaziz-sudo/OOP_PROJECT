@@ -1361,3 +1361,94 @@ bool FileManagement::AssignMissionToLeastBusyStaff(const string& mission)
 
     return true;
 }
+
+bool FileManagement::ResetStudentMealsIfNewDate(const string& date)
+{
+    ifstream restaurantFile("data/restaurant.csv");
+
+    if (!restaurantFile.is_open())
+        return false;
+
+    string line;
+    string lastLine;
+
+    // Skip header
+    getline(restaurantFile, line);
+
+    while (getline(restaurantFile, line))
+    {
+        if (!line.empty())
+            lastLine = line;
+    }
+
+    restaurantFile.close();
+
+    if (lastLine.empty())
+        return false;
+
+    stringstream ss(lastLine);
+
+    string lastDate;
+    getline(ss, lastDate, ',');
+
+    // Since dates are YYYY-MM-DD,
+    // string comparison works correctly
+    if (date < lastDate)
+        return false;
+
+    //-----------------------------------
+    // Reset all student meal reservations
+    //-----------------------------------
+
+    ifstream in("data/students.csv");
+
+    if (!in.is_open())
+        return false;
+
+    vector<string> lines;
+
+    // Save header
+    getline(in, line);
+    lines.push_back(line);
+
+    while (getline(in, line))
+    {
+        stringstream studentSS(line);
+
+        string fn, ln, reg;
+        string breakfast, lunch, dinner;
+
+        getline(studentSS, fn, ',');
+        getline(studentSS, ln, ',');
+        getline(studentSS, reg, ',');
+        getline(studentSS, breakfast, ',');
+        getline(studentSS, lunch, ',');
+        getline(studentSS, dinner);
+
+        string newLine =
+            fn + "," +
+            ln + "," +
+            reg + "," +
+            "Not Reserved," +
+            "Not Reserved," +
+            "Not Reserved";
+
+        lines.push_back(newLine);
+    }
+
+    in.close();
+
+    ofstream out("data/students.csv");
+
+    if (!out.is_open())
+        return false;
+
+    for (const string& l : lines)
+    {
+        out << l << '\n';
+    }
+
+    out.close();
+
+    return true;
+}

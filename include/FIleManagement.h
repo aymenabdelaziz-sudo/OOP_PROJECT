@@ -35,4 +35,5 @@ public:
     static void DisplayLatestRestaurantMenu() ;
     static void DisplayStudentRoom(const string& studentID) ;
     static bool AssignMissionToLeastBusyStaff(const string& mission) ;
+    static bool ResetStudentMealsIfNewDate(const string& date) ;
 };

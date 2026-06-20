@@ -1016,9 +1016,9 @@ while(true)
     cout << "  First Name       : " << S.getFirstName() <<endl ;
     cout << "  Last Name        : " << S.getLastName() <<endl;
     cout << "  Registeration ID : " << S.getRegistrationID() << endl ;
-    cout << "  Breakfast        : " << S.getBreakfast()<<endl ;
-    cout << "  Lunch            : " << S.getLunch()<<endl ;
-    cout << "  Dinner           : " << S.getDinner() <<endl ;
+    cout << "  Breakfast        : " << (S.getBreakfast() ? "Reserved" : "Not Reserved")<<endl ;
+    cout << "  Lunch            : " << (S.getLunch() ? "Reserved" : "Not Reserved")<<endl ;
+    cout << "  Dinner           : " << (S.getDinner() ? "Reserved" : "Not Reserved") <<endl ;
     cout << BLUE;
     cout << "========================================\n";
     

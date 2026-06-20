@@ -1,5 +1,5 @@
 #include "restaurant.h"
-
+#include "FileManagement.h"
 // Constructor implementation
 Restaurant::Restaurant(vector<string> b, vector<string> l, vector<string> d , string date)
     : BreakFast(b), Lunch(l), Dinner(d) ,Date(date)
@@ -16,7 +16,7 @@ void Restaurant::SetMeals()
     
     cout << "  Enter date (YYYY-MM-DD): ";
     cin >> Date;
-
+    FileManagement::ResetStudentMealsIfNewDate(Date) ;
     int n;
     string item;
 
