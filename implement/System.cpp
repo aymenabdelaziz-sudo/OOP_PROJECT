@@ -882,8 +882,88 @@ while(true)
 }
 
 
-    void System::StaffPage(Staff&){
+    void System::StaffPage(Staff& S){
+          int choice,missionNum;
+          while(true){
+              cout << endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << "               COMFORT                  \n";
+    cout << "========================================\n";
+
+    cout << WHITE;
+    cout << "  [1] View my informaton \n" ;
+    cout << "  [2] View my missions\n";
+    cout << "  [3] Check mission\n";
+    cout << "  [4] Logout \n" ;
+    cout << "  [5] Exit \n" ;
+
+    
+
+    cout << BLUE;
+    cout << "========================================\n";
+    
+    cout << WHITE ;
+    cout << "  Enter your choice (1-4): " ;
+       if (!(cin >> choice))
+{
+    cout << "  Invalid input. Please enter a number (view the menu).\n";
+
+    cin.clear(); 
+    cin.ignore(10000, '\n'); 
+
+    continue;
+}
+
+    switch(choice){
+        case 1:
+        
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << WHITE ; 
+    cout << "  You are an " << S.getRole() <<endl ;
+    cout << "  First Name       : " << S.getFirstName() <<endl ;
+    cout << "  Last Name        : " << S.getLastName() <<endl;
+    cout << "  Registeration ID : " << S.getRegistrationID() << endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    
+        break ;
+        case 2:
+        cout << WHITE ;
+        S.printMissions() ;
+        break ;
+        case 3:
+        cout << WHITE ;
+        cout << "  Enter a mission to be done: " ;
+           if (!(cin >> missionNum))
+{
+    cout << "  Invalid input. Enter the number of finished mission. \n ";
+    
+    cin.clear(); 
+    cin.ignore(10000, '\n'); 
+    
+    continue ;
+}
+        S.Done(missionNum) ;
+        break ;
+        case 4:
+        FileManagement::SaveStaffData(S) ;
+        MainPage() ;
+        break ;
+        case 5:
+        FileManagement::SaveStaffData(S) ;
+        cout << "  All your data are saved succefully \n" ;
+        cout << "  Exit ...." ;
         exit(0) ;
+        break ;
+        default :
+        cout <<endl ;
+        cout << "  Invalide choice (1-4) \n" ;
+        break ;
+    }
+}
+
     }
 
     void System::StudentPage(Student&){
