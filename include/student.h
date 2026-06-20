@@ -27,9 +27,9 @@ public :
     void unreserveLunch();
     void unreserveDinner();
 
-    bool getBreakfast()const ;
-    bool getLunch()const ;
-    bool getDinner()const ;
+    string getBreakfast()const ;
+    string getLunch()const ;
+    string getDinner()const ;
 
  
 

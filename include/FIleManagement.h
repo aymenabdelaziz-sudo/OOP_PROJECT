@@ -32,4 +32,7 @@ public:
     static void DisplayMealsByDate(const string& date) ;
     static bool SortAndRemoveDuplicateMenus() ;
     static void DisplayDormInformation() ;
+    static void DisplayLatestRestaurantMenu() ;
+    static void DisplayStudentRoom(const string& studentID) ;
+    static bool AssignMissionToLeastBusyStaff(const string& mission) ;
 };

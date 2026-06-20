@@ -270,7 +270,7 @@ Staff FileManagement::GetStaffByID(const string& regID)
 
 Student FileManagement::GetStudentByID(const string& regID)
 {
-    ifstream file("data/student.csv");
+    ifstream file("data/students.csv");
 
     string line;
     getline(file, line); 
@@ -485,7 +485,7 @@ bool FileManagement::RemoveStudentFromRoom(const string& studentID)
 
 bool FileManagement::RemoveStudent(const string& regID)
 {
-    ifstream in("data/student.csv");
+    ifstream in("data/students.csv");
 
     if (!in.is_open())
         return false;
@@ -534,7 +534,7 @@ bool FileManagement::RemoveStudent(const string& regID)
         return false;
     }
 
-    ofstream out("data/student.csv");
+    ofstream out("data/students.csv");
 
     if (!out.is_open()) // this optional because some rare cases like full disk or the data folder does mot exist
         return false;
@@ -614,7 +614,7 @@ bool FileManagement::RemoveStaff(const string& regID)
 
     bool FileManagement::SaveStudentData(const Student& S)
 {
-    ifstream in("data/student.csv");
+    ifstream in("data/students.csv");
 
     if (!in.is_open())
         return false;
@@ -658,7 +658,7 @@ bool FileManagement::RemoveStaff(const string& regID)
     if (!found)
         return false;
 
-    ofstream out("data/student.csv");
+    ofstream out("data/students.csv");
 
     for (const string& l : lines)
         out << l << '\n';
@@ -1164,4 +1164,200 @@ void FileManagement::DisplayDormInformation()
     }
 
     roomsFile.close();
+}
+
+void FileManagement::DisplayLatestRestaurantMenu()
+{
+    ifstream in("data/restaurant.csv");
+
+    if (!in.is_open())
+    {
+        cout << "Could not open restaurant.csv\n";
+        return;
+    }
+
+    string line;
+    string lastLine;
+
+    // Skip header
+    getline(in, line);
+
+    while (getline(in, line))
+    {
+        if (!line.empty())
+            lastLine = line;
+    }
+
+    in.close();
+
+    if (lastLine.empty())
+    {
+        cout << "No menu found.\n";
+        return;
+    }
+
+    stringstream ss(lastLine);
+
+    string date;
+    string breakfast;
+    string lunch;
+    string dinner;
+
+    getline(ss, date, ',');
+    getline(ss, breakfast, ',');
+    getline(ss, lunch, ',');
+    getline(ss, dinner);
+
+    cout << "\n===== Latest Restaurant Menu =====\n";
+    cout << "Date: " << date << "\n\n";
+
+    cout << "Breakfast:\n";
+    stringstream bss(breakfast);
+    string item;
+    while (getline(bss, item, '|'))
+        cout << "  - " << item << '\n';
+
+    cout << "\nLunch:\n";
+    stringstream lss(lunch);
+    while (getline(lss, item, '|'))
+        cout << "  - " << item << '\n';
+
+    cout << "\nDinner:\n";
+    stringstream dss(dinner);
+    while (getline(dss, item, '|'))
+        cout << "  - " << item << '\n';
+}
+
+void FileManagement::DisplayStudentRoom(const string& studentID)
+{
+    ifstream in("data/rooms.csv");
+
+    if (!in.is_open())
+    {
+        cout << "Could not open rooms.csv\n";
+        return;
+    }
+
+    string line;
+
+    // Skip header
+    getline(in, line);
+
+    bool found = false;
+
+    while (getline(in, line))
+    {
+        stringstream ss(line);
+
+        string id;
+        string room;
+
+        getline(ss, id, ',');
+        getline(ss, room);
+
+        if (id == studentID)
+        {
+            cout << WHITE ;
+            cout << "  Your room number is: " << room << '\n';
+            found = true;
+            break;
+        }
+    }
+
+    in.close();
+
+    if (!found)
+    {
+        cout << WHITE ;
+        cout << "  You don't have a room.\n";
+    }
+}
+
+bool FileManagement::AssignMissionToLeastBusyStaff(const string& mission)
+{
+    ifstream in("data/staff.csv");
+
+    if (!in.is_open())
+        return false;
+
+    vector<string> lines;
+    string line;
+
+    // Header
+    getline(in, line);
+    lines.push_back(line);
+
+    int targetIndex = -1;
+    int minMissions = INT_MAX;
+
+    while (getline(in, line))
+    {
+        lines.push_back(line);
+
+        stringstream ss(line);
+
+        string fn, ln, reg, missions;
+
+        getline(ss, fn, ',');
+        getline(ss, ln, ',');
+        getline(ss, reg, ',');
+        getline(ss, missions);
+
+        int missionCount = 0;
+
+        if (!missions.empty())
+        {
+            missionCount = 1;
+
+            for (char c : missions)
+            {
+                if (c == '|')
+                    missionCount++;
+            }
+        }
+
+        // Keep first encountered staff with minimum missions
+        if (missionCount < minMissions)
+        {
+            minMissions = missionCount;
+            targetIndex = lines.size() - 1;
+        }
+    }
+
+    in.close();
+
+    if (targetIndex == -1)
+        return false;
+
+    stringstream ss(lines[targetIndex]);
+
+    string fn, ln, reg, missions;
+
+    getline(ss, fn, ',');
+    getline(ss, ln, ',');
+    getline(ss, reg, ',');
+    getline(ss, missions);
+
+    if (!missions.empty())
+        missions += "|";
+
+    missions += mission;
+
+    lines[targetIndex] =
+        fn + "," +
+        ln + "," +
+        reg + "," +
+        missions;
+
+    ofstream out("data/staff.csv");
+
+    if (!out.is_open())
+        return false;
+
+    for (const string& l : lines)
+        out << l << '\n';
+
+    out.close();
+
+    return true;
 }

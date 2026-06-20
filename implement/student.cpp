@@ -65,14 +65,26 @@ string Student::getRole() const
 }
 
 
-bool Student::getDinner()const{
-    return breakfastReserved ;
+string Student::getDinner()const{
+    if(dinnerReserved){
+    return "Reserved" ;
+    }else{
+        return "Unreserved" ;
+    }
 }
 
-bool Student::getLunch()const{
-    return lunchReserved ;
+string Student::getLunch()const{
+    if(lunchReserved){
+        return "Reserved" ;
+    }else{
+        return "Unreserved" ;
+    }
 }
 
-bool Student::getBreakfast()const{
-    return breakfastReserved ;
+string Student::getBreakfast()const{
+       if(dinnerReserved){
+        return "Reserved" ;
+    }else{
+        return "Unreserved" ;
+    }
 }

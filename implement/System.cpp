@@ -921,7 +921,7 @@ while(true)
     cout << BLUE;
     cout << "========================================\n";
     cout << WHITE ; 
-    cout << "  You are an " << S.getRole() <<endl ;
+    cout << "  You are a " << S.getRole() <<endl ;
     cout << "  First Name       : " << S.getFirstName() <<endl ;
     cout << "  Last Name        : " << S.getLastName() <<endl;
     cout << "  Registeration ID : " << S.getRegistrationID() << endl ;
@@ -966,6 +966,108 @@ while(true)
 
     }
 
-    void System::StudentPage(Student&){
+    void System::StudentPage(Student& S){
+             int choice;
+             string report ;
+          while(true){
+              cout << endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << "               COMFORT                  \n";
+    cout << "========================================\n";
+
+    cout << WHITE;
+    cout << "  [1] View my informaton \n" ;
+    cout << "  [2] View restaurant menu\n";
+    cout << "  [3] View my room number\n" ;
+    cout << "  [4] Reserve break fast\n";
+    cout << "  [5] Reserve lunch \n" ;
+    cout << "  [6] Reserve dinner \n" ;
+    cout << "  [7] Unreserve break fast\n";
+    cout << "  [8] Unreserve lunch \n" ;
+    cout << "  [9] Unreserve dinner \n" ;
+    cout << "  [10] Report a problem\n" ;
+    cout << "  [11] Logout\n" ;
+    cout << "  [12] Exit\n" ;
+    
+
+    cout << BLUE;
+    cout << "========================================\n";
+    
+    cout << WHITE ;
+    cout << "  Enter your choice (1-12): " ;
+       if (!(cin >> choice))
+{
+    cout << "  Invalid input. Please enter a number (view the menu).\n";
+
+    cin.clear(); 
+    cin.ignore(10000, '\n'); 
+
+    continue;
+}
+
+    switch(choice){
+        case 1:
+        
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << WHITE ; 
+    cout << "  You are a " << S.getRole() <<endl ;
+    cout << "  First Name       : " << S.getFirstName() <<endl ;
+    cout << "  Last Name        : " << S.getLastName() <<endl;
+    cout << "  Registeration ID : " << S.getRegistrationID() << endl ;
+    cout << "  Breakfast        : " << S.getBreakfast()<<endl ;
+    cout << "  Lunch            : " << S.getLunch()<<endl ;
+    cout << "  Dinner           : " << S.getDinner() <<endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    
+        break ;
+        case 2:
+        FileManagement::DisplayLatestRestaurantMenu() ;
+        break ;
+        case 3:
+        FileManagement::DisplayStudentRoom(S.getRegistrationID()) ;
+        break ;
+        case 4:
+        S.reserveBreakfast() ;
+        break ;
+        case 5:
+        S.reserveLunch() ;
+        break ;
+        case 6:
+        S.reserveDinner() ;
+        break ;
+        case 7:
+        S.unreserveBreakfast() ;
+        break ;
+        case 8:
+        S.unreserveLunch() ;
+        break ;
+        case 9:
+        S.unreserveDinner() ;
+        break ;
+        case 10:
+        cout << WHITE ;
+        cout << "  Enter your report: " ;
+        cin.ignore() ;
+        getline(cin,report) ;
+        FileManagement::AssignMissionToLeastBusyStaff(report) ;
+        break ;
+        case 11:
+        FileManagement::SaveStudentData(S) ;
+        MainPage() ;
+        break ;
+        case 12:
+        FileManagement::SaveStudentData(S) ;
+        cout << "  All your data are saved succefully \n" ;
+        cout << "  Exit ...." ;
         exit(0) ;
+        break ;
+        default :
+        cout <<endl ;
+        cout << "  Invalide choice (1-12) \n" ;
+        break ;
+    }
+}
     }
