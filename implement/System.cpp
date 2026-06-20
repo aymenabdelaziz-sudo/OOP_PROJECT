@@ -596,7 +596,7 @@ string reg ;
     RestaurantManagemnt(A) ;
     break ;
     case 5:
-
+    DormMAnagement(A) ;
     break ;
     case 6:
     MainPage() ;
@@ -807,7 +807,79 @@ string reg ;
 }
     }
 
+    void System::DormMAnagement(Administrator A){
+        string ID ;
+        int choice,roomNum ;
+          while(true){
+              cout << endl ;
+    cout << BLUE;
+    cout << "========================================\n";
+    cout << "               COMFORT                  \n";
+    cout << "========================================\n";
 
+    cout << WHITE;
+    cout << "  [1] View rooms informaton \n" ;
+    cout << "  [2] Remove student from dorm\n";
+    cout << "  [3] Add student to dorm\n";
+    cout << "  [4] Back \n" ;
+    
+
+    cout << BLUE;
+    cout << "========================================\n";
+    
+    cout << WHITE ;
+    cout << "  Enter your choice (1-4): " ;
+       if (!(cin >> choice))
+{
+    cout << "  Invalid input. Please enter a number (view the menu).\n";
+
+    cin.clear(); 
+    cin.ignore(10000, '\n'); 
+
+    continue;
+}
+
+    switch(choice){
+        case 1:
+        FileManagement::DisplayDormInformation() ;
+        break ;
+        case 2:
+        cout << "  Enter the registration ID of the student you want to remove from the dorm: " ;
+        cin.ignore() ;
+        getline(cin,ID) ;
+        A.RemStudentFromDorm(ID) ;
+        break ;
+        case 3:
+        cin.ignore() ;
+        cout << "  Enter the registration of the student you want to add dorm: " ;
+        getline(cin,ID) ;
+        
+
+while(true)
+{
+    cout << "  Enter the room number you want to add student to: " ;
+
+
+    if(cin >> roomNum)
+        break;
+
+    cout << "  Invalid input. Please enter an integer.\n";
+
+    cin.clear();
+    cin.ignore(10000, '\n'); 
+}
+        A.addStudentToDorm(ID,roomNum) ;
+        break ;
+        case 4:
+        AdministratorPage(A) ;
+        break ;
+        default :
+        cout <<endl ;
+        cout << "  Invalide choice (1-4) \n" ;
+        break ;
+    }
+    }
+}
 
 
     void System::StaffPage(Staff&){

@@ -21,7 +21,7 @@ void Staff::printMissions()const
 
         for(int i = 0; i < int(To_Do.size()); i++)
         {
-          cout <<"i+1"<<"- " << To_Do[i] <<endl ;   
+          cout <<"  i+1"<<"- " << To_Do[i] <<endl ;   
         }
 
 

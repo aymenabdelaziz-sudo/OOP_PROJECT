@@ -31,4 +31,5 @@ public:
     static bool SaveRestaurant(const Restaurant& ) ;
     static void DisplayMealsByDate(const string& date) ;
     static bool SortAndRemoveDuplicateMenus() ;
+    static void DisplayDormInformation() ;
 };

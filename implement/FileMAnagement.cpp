@@ -316,17 +316,16 @@ Student FileManagement::GetStudentByID(const string& regID)
 }
 
 
-
 bool FileManagement::AssignStudentToRoom(const string& studentID,
                                          int roomNumber)
 {
     if (!FileManagement::StudentExists(studentID))
-{
-    cout << "  Student does not exist.\n";
-    return false;
-}
+    {
+        cout << "  Student does not exist.\n";
+        return false;
+    }
 
-    ifstream in("data/dorm.csv");
+    ifstream in("data/rooms.csv");
 
     if (!in.is_open())
         return false;
@@ -334,16 +333,20 @@ bool FileManagement::AssignStudentToRoom(const string& studentID,
     vector<string> lines;
     string line;
 
-    // Copy header
+    // Header
     getline(in, line);
     lines.push_back(line);
 
-    bool studentAlreadyAssigned = false;
+    int currentRoomIndex = -1;
+    int targetRoomIndex = -1;
+
     bool roomFound = false;
     bool roomEmpty = false;
 
     while (getline(in, line))
     {
+        lines.push_back(line);
+
         stringstream ss(line);
 
         string id;
@@ -352,32 +355,20 @@ bool FileManagement::AssignStudentToRoom(const string& studentID,
         getline(ss, id, ',');
         getline(ss, room);
 
-        // Check if student already has a room
         if (id == studentID)
-            studentAlreadyAssigned = true;
+            currentRoomIndex = lines.size() - 1;
 
-        // Check target room
-        if (stoi(room) == roomNumber) //stoi used to convert from string to int
+        if (stoi(room) == roomNumber)
         {
             roomFound = true;
+            targetRoomIndex = lines.size() - 1;
 
             if (id.empty())
-            {
                 roomEmpty = true;
-                line = studentID + "," + room;
-            }
         }
-
-        lines.push_back(line);
     }
 
     in.close();
-
-    if (studentAlreadyAssigned)
-    {
-        cout << "  Student already has a room.\n";
-        return false;
-    }
 
     if (!roomFound)
     {
@@ -391,7 +382,37 @@ bool FileManagement::AssignStudentToRoom(const string& studentID,
         return false;
     }
 
-    ofstream out("data/dorm.csv");
+    // Empty old room (if student already has one)
+    if (currentRoomIndex != -1)
+    {
+        stringstream ss(lines[currentRoomIndex]);
+
+        string id;
+        string room;
+
+        getline(ss, id, ',');
+        getline(ss, room);
+
+        lines[currentRoomIndex] = "," + room;
+    }
+
+    // Assign new room
+    {
+        stringstream ss(lines[targetRoomIndex]);
+
+        string id;
+        string room;
+
+        getline(ss, id, ',');
+        getline(ss, room);
+
+        lines[targetRoomIndex] = studentID + "," + room;
+    }
+
+    ofstream out("data/rooms.csv");
+
+    if (!out.is_open())
+        return false;
 
     for (const string& l : lines)
         out << l << '\n';
@@ -403,11 +424,12 @@ bool FileManagement::AssignStudentToRoom(const string& studentID,
 
 bool FileManagement::RemoveStudentFromRoom(const string& studentID)
 {
-    ifstream in("data/dorm.csv");
+    
+    ifstream in("data/rooms.csv");
 
-    if (!in.is_open())
-        return false;
-
+   if (!in.is_open()){
+    return false;
+   }
     vector<string> lines;
     string line;
 
@@ -446,7 +468,7 @@ bool FileManagement::RemoveStudentFromRoom(const string& studentID)
         return false;
     }
 
-    ofstream out("data/dorm.csv");
+    ofstream out("data/rooms.csv");
 
     if (!out.is_open())
         return false;
@@ -1066,4 +1088,80 @@ bool FileManagement::SortAndRemoveDuplicateMenus()
     out.close();
 
     return true;
+}
+
+void FileManagement::DisplayDormInformation()
+{
+    ifstream roomsFile("data/rooms.csv");
+
+    if(!roomsFile.is_open())
+    {
+        cout << "  Unable to open rooms.csv\n";
+        return;
+    }
+
+    string line;
+
+    getline(roomsFile, line); 
+
+    cout << "\n========== DORM INFORMATION ==========\n\n";
+
+    while(getline(roomsFile, line))
+    {
+        stringstream ss(line);
+
+        string studentID;
+        string roomNumber;
+
+        getline(ss, studentID, ',');
+        getline(ss, roomNumber);
+
+        cout << "  Room Number: " << roomNumber << '\n';
+
+        if(studentID.empty())
+        {
+            cout << "  Status: Empty\n";
+        }
+        else
+        {
+            ifstream studentsFile("data/students.csv");
+
+            string studentLine;
+            string firstName ;
+            string lastName ;
+
+            getline(studentsFile, studentLine); 
+
+            while(getline(studentsFile, studentLine))
+            {
+                stringstream studentSS(studentLine);
+
+                string fn;
+                string ln;
+                string regID;
+
+                getline(studentSS, fn, ',');
+                getline(studentSS, ln, ',');
+                getline(studentSS, regID, ',');
+
+                if(regID == studentID)
+                {
+                    firstName = fn;
+                    lastName = ln;
+                    break;
+                }
+            }
+
+            studentsFile.close();
+
+            cout << "  Status: Occupied\n";
+            cout << "  Student ID: " << studentID << '\n';
+            cout << "  First Name: " << firstName << '\n';
+            cout << "  Last Name : " << lastName << '\n';
+        }
+
+        cout << "----------------------------------\n";
+    }
+
+    roomsFile.close();
 }
