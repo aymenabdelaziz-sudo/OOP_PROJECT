@@ -7,7 +7,7 @@
 using namespace std ;
 class Restaurant
 {
-    friend class Administrator ;
+    
 public :
     vector<string> BreakFast ;
     vector<string> Lunch ;

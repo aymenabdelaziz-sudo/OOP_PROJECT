@@ -1,5 +1,5 @@
 #include "student.h"
-#include "staff.h"
+
 
 Student::Student(string fn,
                  string ln,

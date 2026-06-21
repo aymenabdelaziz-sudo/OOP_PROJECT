@@ -19,47 +19,48 @@ g++ -std=c++17 -Iinclude -o COMFORT src/main.cpp
 ## OOP Concepts Used
 | Concept | Where |
 |---|---|
-| **Inheritance** | `Person → Student`, `Person → Staff` |
+| **Inheritance** | `Person → Student`, `Person → Staff` , `Person → Administrator`|
 | **Polymorphism** | `virtual getRole()` |
-| **Composition** | `Dorm` contains `Student` |
-| **Exception Handling** | Invalid argument in `Administrator`, out of range in `Administrator` and `Staff` |
-| **Dynamic Memory** | used in add functions in `Administrator` |
-| **Friend Classes** | `Administrator` declared as friend in `Restaurant` |
+| **Exception Handling** | out of range in `Staff` |
+
+
 
 ## Data Structures
-- `vector` — To_Do in Staff
-- `array`  — students , Rooms , staffs in Administrator
+- `vector` — in Staff and Restaurant
+
 
 ## Users / Roles
-- **Students** — reserve or unreserve meals (breakfast , lunch , dinner) , report problems to staff , view its information
-- **Staff** — view its To do list and check the completed task
-- **Administrator** — (add , remove) student or staff (to , from) the system , (add , remove) student to the Dorm , view information of all staff and student on the system , modifey the restaurant menu
+- **Students** — reserve or unreserve meals (breakfast , lunch , dinner) , report problems to staff , view their information , view today restaurant menu , and room information if the student has one
+- **Staff** — view its To do list and information and mark done the completed task 
+- **Administrator** — (add , remove) student or staff (to , from) the system , (add , remove) student to the Dorm , view information of all staff and student on the system , modifey the restaurant menu and search for any day menu
 
 ## Operations Supported
-- **Access** / **Insert** / **Delete** on students, Rooms, staffs 
+- **Access** / **Insert** / **Delete** / **Sort** / **Search** / **Update**
 
 ## Storage
 - Text files (CSV format) in `data/` directory:
-  - `data/students.csv`
-  - `data/staff.csv`
-  - `data/rooms.csv`
   - `data/administrator.csv`
+  - `data/restaurant.csv`
+  - `data/rooms.csv`
+  - `data/staff.csv`
+  - `data/students.csv`
+  `
 
 
 ## Project Structure
 ```
 OOP_PROJECT/
 ├── data/
-│   ├── student.csv
-│   ├── staff.csv
-│   ├── rooms.csv
 │   ├── administrator.csv
+│   ├── restauarant.csv
+│   ├── rooms.csv
+│   ├── staff.csv
+│   ├── students.csv
 ├── implement/
 │   ├── person.cpp
 │   ├── student.cpp
 │   ├── staff.cpp
 │   ├── administrator.cpp
-│   ├── dorm.cpp
 │   ├── restaurant.cpp   
 │   ├── FileManagement.cpp
 │   └── System.cpp
@@ -68,7 +69,6 @@ OOP_PROJECT/
 │   ├── student.h
 │   ├── staff.h
 │   ├── administrator.h
-│   ├── dorm.h
 │   ├── restaurant.h   
 │   ├── FileManagement.h
 │   └── System.h

@@ -13,7 +13,6 @@ public:
     Person(string fn,
            string ln,
            string reg);
-    virtual ~Person() = default ;
     string getFirstName() const;
     string getLastName() const;
     string getRegistrationID() const;

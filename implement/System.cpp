@@ -5,7 +5,7 @@
 #include "staff.h"
 #include "student.h"
 #include "restaurant.h"
-#include "dorm.h"
+
 #include "FileManagement.h"
 // Colors
 #define BLUE  "\033[34m"
@@ -604,7 +604,7 @@ string reg ;
   
     case 7:
     cout << WHITE ;
-    cout <<"  All your data are saved succesfully \n" ;
+    cout <<"  All your data are saved successfully \n" ;
     cout <<"  Exit ...." ;
     exit(0) ;
     break ;
@@ -676,7 +676,7 @@ string reg ;
         cout << "  Enter the mission: " ;
         getline(cin,mission) ;
         if(FileManagement::AddMissionToStaff(ID,mission)){
-            cout << "  Mission assigned to staff succesfully\n" ;
+            cout << "  Mission assigned to staff successfully\n" ;
         } 
         break ;
         case 4:
@@ -953,7 +953,7 @@ while(true)
         break ;
         case 5:
         FileManagement::SaveStaffData(S) ;
-        cout << "  All your data are saved succefully \n" ;
+        cout << "  All your data are saved successfully \n" ;
         cout << "  Exit ...." ;
         exit(0) ;
         break ;
@@ -1060,7 +1060,7 @@ while(true)
         break ;
         case 12:
         FileManagement::SaveStudentData(S) ;
-        cout << "  All your data are saved succefully \n" ;
+        cout << "  All your data are saved successfully \n" ;
         cout << "  Exit ...." ;
         exit(0) ;
         break ;

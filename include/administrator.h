@@ -4,7 +4,7 @@
 #include "person.h"
 #include "student.h"
 #include "staff.h"
-#include "dorm.h"
+
 
 class Administrator : public Person
 {
