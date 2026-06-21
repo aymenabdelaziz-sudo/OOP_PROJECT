@@ -123,7 +123,7 @@ void System::MainPage(){
     break ;
     case 3:
     cout << endl ;
-    cout <<WHITE <<"  All your data are saved succefully \n"<<"  Exit ...." ;
+    cout <<WHITE <<"  All your data are saved successfully \n"<<"  Exit ...." ;
     exit(0) ;
     break ;
   
@@ -665,7 +665,7 @@ string reg ;
         cin.ignore() ;
         getline(cin,ID) ;
         if(A.RemStaff(ID)){
-            cout << "  Staff removed succefully. \n" ;
+            cout << "  Staff removed successfully. \n" ;
         } 
         break ;
         case 3:
@@ -732,7 +732,7 @@ string reg ;
         cin.ignore() ;
         getline(cin,ID) ;
         if(A.RemStudent(ID)){
-            cout << "  Student removed succefully. \n" ;
+            cout << "  Student removed successfully. \n" ;
         } 
         break ;
         case 3:

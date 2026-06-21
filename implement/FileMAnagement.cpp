@@ -752,7 +752,7 @@ void FileManagement::DisplayAllStaff()
     cout << BLUE ;
     cout << "\n============== " ;
     cout<<WHITE<<"STAFF LIST"<< BLUE<<"==============\n\n";
-
+    cout << WHITE ;
     while (getline(file, line))
     {
         stringstream ss(line);
